@@ -3,3 +3,4 @@
 @import 'uikit/dist/css/uikit.min.css';
 @import 'codemirror/addon/hint/show-hint.css';
 @import "codemirror/lib/codemirror.css";
+@import 'codemirror/theme/ambiance.css';

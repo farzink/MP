@@ -1,23 +1,17 @@
-<p>
-  test works!
-</p>
-<div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
-  <div>
-      <div class="uk-card uk-card-default uk-card-body">
-          <h3 class="uk-card-title">Default</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      </div>
-  </div>
-  <div>
+<h4>Question Type</h4>
+<div class="uk-child-width-1-2@m uk-grid-small uk-grid-match" uk-grid>  
+  <div class="uk-animation-toggle">
       <div class="uk-card uk-card-primary uk-card-body">
-          <h3 class="uk-card-title">Primary</h3>
+          <h3 class="uk-card-title">Simple Question</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       </div>
+      <button ref="valueButton" class="uk-button uk-button-default uk-animation-scale-up" (click)="getQuestion(1)">Select</button>
   </div>
-  <div>
+  <div class="uk-animation-toggle">
       <div class="uk-card uk-card-secondary uk-card-body">
-          <h3 class="uk-card-title">Secondary</h3>
+          <h3 class="uk-card-title">Complex Question</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
       </div>
+      <button ref="valueButton" class="uk-button uk-button-default uk-animation-scale-up" (click)="getQuestion(2)">Select</button>
   </div>
 </div>

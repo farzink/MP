@@ -9,12 +9,19 @@ import { SupervisorHomeComponent } from './supervisor-home/supervisor-home.compo
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SupervisorCreateQuestionComponent } from './supervisor-create-question/supervisor-create-question.component';
 import { UserQuestionComponent } from './user-question/user-question.component';
+import { UserQuestionsComponent } from './user-questions/user-questions.component';
+import { StoreService } from './store/StoreService';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 const appRoutes: Routes = [
   
   { path: 'test', component: TestComponent },
   { path: 'supervisor-create-question', component: SupervisorCreateQuestionComponent },
   { path: 'user-question', component: UserQuestionComponent },
+  { path: 'user-questions', component: UserQuestionsComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
  
@@ -30,10 +37,12 @@ const appRoutes: Routes = [
     SupervisorHomeComponent,
     PagenotfoundComponent,
     SupervisorCreateQuestionComponent,
-    UserQuestionComponent
+    UserQuestionComponent,
+    UserQuestionsComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,    
     RouterModule.forRoot(
       appRoutes,
       {
@@ -41,7 +50,9 @@ const appRoutes: Routes = [
       }
     )
   ],
-  providers: [],
+  providers: [
+    StoreService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,11 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="uk-container">
-    <nav>
-        <li>
-            <ul><a routerLink="/supervisor-create-question" routerLinkActive="active">Create Question</a></ul>
-            <ul><a routerLink="/user-question" routerLinkActive="">User Question</a></ul>
-            <ul><a routerLink="/test">test</a></ul>
-        </li>
+    <nav class="uk-navbar">
+        <ul class="uk-navbar-nav uk-navbar-inverse">
+            <li>
+                <a class="uk-navbar-nav-subtitle" routerLink="/test" routerLinkActive="active">Create Question</a>
+            </li>
+            <li>
+                <a class="uk-navbar-nav-subtitle" routerLink="/user-questions" routerLinkActive="">User Questions</a>
+            </li>
+            <!-- <li>
+                <a class="uk-navbar-nav-subtitle" routerLink="/test">test</a>
+            </li> -->
+        </ul>
     </nav>
     <router-outlet></router-outlet>
 </div>
