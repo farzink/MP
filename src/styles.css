@@ -1,0 +1,5 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'uikit/dist/css/uikit.min.css';
+@import 'codemirror/addon/hint/show-hint.css';
+@import "codemirror/lib/codemirror.css";
