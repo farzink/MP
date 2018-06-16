@@ -1,7 +1,17 @@
-<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
-  <div class="uk-card-badge uk-label">Hardness</div>
-  <h3 class="uk-card-title">Question Body</h3>
-  
-  <textarea class="uk-textarea" rows="5" placeholder="Body"></textarea>
-  <button class="uk-margin uk-button uk-button-default uk-align-right">Create</button>
+<h4>Question Type</h4>
+<div class="uk-child-width-1-2@m uk-grid-small uk-grid-match" uk-grid>
+    <div class="uk-animation-toggle">
+        <div class="uk-card uk-card-primary uk-card-body">
+            <h3 class="uk-card-title">Simple Question</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <button ref="valueButton" class="uk-button uk-button-default uk-animation-scale-up" (click)="createQuestion(1)">Select</button>
+    </div>
+    <div class="uk-animation-toggle">
+        <div class="uk-card uk-card-secondary uk-card-body">
+            <h3 class="uk-card-title">Complex Question</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <button ref="valueButton" class="uk-button uk-button-default uk-animation-scale-up" (click)="createQuestion(2)">Select</button>
+    </div>
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-supervisor-create-question',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupervisorCreateQuestionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+  createQuestion(kind) {
+    if (kind == 1)
+      this.router.navigate(['/supervisor/questions/simple/create']);
+    else if (kind == 2)
+      this.router.navigate(['/supervisor/questions/complex/create']);
   }
 
 }
