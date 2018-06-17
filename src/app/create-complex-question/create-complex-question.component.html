@@ -1,3 +1,106 @@
-<p>
-  create-complex-question works!
-</p>
+<h2>Complex Question</h2>
+<div class="uk-grid">
+    <div class="uk-card uk-card-body uk-width-1-2@m">
+        <button class="uk-button uk-button-default" type="button">Hardness</button>
+        <div uk-dropdown="">
+            <ul class="uk-nav uk-dropdown-nav">
+                <li>
+                    <a href="#">Easy</a>
+                </li>
+                <li>
+                    <a href="#">Medium</a>
+                </li>
+                <li>
+                    <a href="#">Hard</a>
+                </li>
+            </ul>
+        </div>
+        <div class="uk-card-badge uk-label">Easy</div>
+        <h3 class="uk-card-title">Question Description</h3>
+        <textarea class="uk-textarea" rows="5" placeholder="Body">          
+        </textarea>
+    </div>
+    <div class="uk-card uk-card-body uk-width-1-2@m">
+        <div #htmlContainerFrame style="position: relative">
+            <div [class.span-requested]="!isSpanRequested" #inputMarker style="position: absolut; height: 100%; width: 100%;">
+                <input class="uk-input" type="text" />
+                <button class="uk-button uk-button-secondary" (click)="spanMode()">Ok</button>
+                <button class="uk-button uk-button-secondary" (click)="spanMode()">Cancel</button>
+            </div>
+            <div [class.span-requested]="isSpanRequested" style="position: absolut; height: 100%; width: 100%;" id="htmlContainer" #htmlContainer>
+
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<button #themeButton class="uk-button uk-button-default" (click)="themeButtonClicked()">Theme</button>
+<textarea id="code" #editor class="editor">
+    <div id="maincontent">
+        <div>
+            <div>
+                <input type="text" id="i1" style="width: 200px" value="erqwerqwer">                    
+            </div>
+        </div>
+        <div>
+            <div style="display: inline-block">
+                <button id="n1">1</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="n2">2</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="n3">3</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="c1">C</button>                
+            </div>
+        </div>
+    
+        <div>
+            <div style="display: inline-block">
+                <button id="n4">4</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="n5">5</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="n6">6</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="o1">+</button>                
+            </div>
+        </div>
+    
+        <div>
+            <div style="display: inline-block">
+                <button id="n7">7</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="n8">8</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="n9">9</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="o2">-</button>                
+            </div>
+        </div>
+    
+        <div>
+            <div style="display: inline-block">
+                <button id="o3">/</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="n0">0</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="o4">*</button>                
+            </div>
+            <div style="display: inline-block">
+                <button id="o5">=</button>                
+            </div>
+        </div>
+</textarea>
+<button class="uk-button uk-button-secondary" (click)="synthesizeHtml()">Synthesize</button>
+<hr />
