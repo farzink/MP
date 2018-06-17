@@ -1,0 +1,74 @@
+<div class="uk-grid">
+    <div class="uk-card uk-card-body uk-width-1-1@m">
+        <div #htmlContainerFrame style="position: relative">
+            <div [class.span-requested]="!isSpanRequested" #inputMarker style="position: absolut; height: 100%; width: 100%; font-size: initial;">
+                <div>
+                    <label>Selected Control </label>
+                    <label style="color:darkred; font-weight: bolder" #selectedControlHtml></label>
+                </div>
+                <label>The identifier for this control:</label>
+                <input #textifier class="uk-input" type="text" />
+
+
+                <button class="uk-button uk-button-danger" (click)="spanMode(false)">Cancel</button>
+                <button class="uk-button uk-button-primary" (click)="createSpan($event)">Ok</button>
+            </div>
+            <div id="htmlContainer" #htmlContainer></div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <!-- <div class="uk-card uk-card-body uk-width-1-2@m">
+        <textarea id="code" #editor class="editor"></textarea>
+        <button class="uk-button uk-button-default uk-align-right" (click)="apply()">Apply</button>
+    </div> -->
+
+</div>
+<div class="uk-container">
+    <p class="uk-margin">
+        <button class="uk-button uk-button-default" (click)="addRule()">Add Rule</button>
+        <button [hidden]="rules.length == 0" class="uk-button uk-button-primary" (click)="confirmRules()">Confirm Rules</button>
+    </p>
+
+    <div class="grid" [hidden]="!tempRuleStatus">
+        <div #tempRuleHtml class="uk-width-1-11@m uk-box-shadow-medium">
+
+        </div>
+        <div class="uk-width-1-1@m">
+            <p class="uk-margin uk-align-right">
+                <button class="uk-button uk-button-danger" (click)="cancelRule()">Cancel</button>
+                <button class="uk-button uk-button-primary" (click)="acceptRule()">Accept</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<hr class="uk-divider-icon">
+
+<h1 class="uk-heading-bullet">Rules</h1>
+
+<div #rulesHtml class="uk-container">
+    <ul class="uk-list uk-list-striped">
+        <li *ngFor="let r of rules; let n = index">
+            <h4 class="uk-heading-bullet">Rule {{n+1}}</h4>
+            <div class="grid">
+                <div class="uk-width-1-2@m uk-box-shadow-medium">
+                    <button *ngFor="let c of r" class="uk-button uk-button-secondary">
+                        {{c}}
+                    </button>
+                </div>
+                <div class="uk-width-1-1@m">
+                    <p class="uk-margin uk-align-right">
+                        <button class="uk-button uk-button-danger" (click)="removeRule(n)">Remove</button>
+                    </p>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>

@@ -4,33 +4,53 @@
         <button class="uk-button uk-button-default" type="button">Hardness</button>
         <div uk-dropdown="">
             <ul class="uk-nav uk-dropdown-nav">
-                <li>
+                <li (click)="setHardness(1)">
                     <a href="#">Easy</a>
                 </li>
-                <li>
+                <li (click)="setHardness(2)">
                     <a href="#">Medium</a>
                 </li>
-                <li>
+                <li (click)="setHardness(3)">
                     <a href="#">Hard</a>
                 </li>
             </ul>
         </div>
-        <div class="uk-card-badge uk-label">Easy</div>
+        <div class="uk-card-badge uk-label">{{ hardness }}</div>
         <h3 class="uk-card-title">Question Description</h3>
-        <textarea class="uk-textarea" rows="5" placeholder="Body">          
-        </textarea>
+
+        <textarea #questionDescription class="uk-textarea" rows="5" placeholder="description"></textarea>
     </div>
     <div class="uk-card uk-card-body uk-width-1-2@m">
+        <div style="position: absolute; top: 0px; right: 0px; margin: 5px">
+            <button class="uk-button uk-button-default uk-button-small" uk-icon="expand" (click)="zoom(true)"></button>
+            <button class="uk-button uk-button-default uk-button-small" uk-icon="shrink" (click)="zoom(false)"></button>
+            <button class="uk-button uk-button-default uk-button-small" (click)="zoomReset()">Reset</button>
+
+        </div>
         <div #htmlContainerFrame style="position: relative">
-            <div [class.span-requested]="!isSpanRequested" #inputMarker style="position: absolut; height: 100%; width: 100%;">
-                <input class="uk-input" type="text" />
-                <button class="uk-button uk-button-secondary" (click)="spanMode()">Ok</button>
-                <button class="uk-button uk-button-secondary" (click)="spanMode()">Cancel</button>
+            <div [class.span-requested]="!isSpanRequested" #inputMarker style="position: absolut; height: 100%; width: 100%; font-size: initial;">
+                <div>
+                    <label>Selected Control </label>
+                    <label style="color:darkred; font-weight: bolder" #selectedControlHtml></label>
+                </div>
+                <label>The identifier for this control:</label>
+                <input #textifier class="uk-input" type="text" />
+
+
+                <button class="uk-button uk-button-danger" (click)="spanMode(false)">Cancel</button>
+                <button class="uk-button uk-button-primary" (click)="createSpan($event)">Ok</button>
             </div>
             <div [class.span-requested]="isSpanRequested" style="position: absolut; height: 100%; width: 100%;" id="htmlContainer" #htmlContainer>
 
             </div>
+
+            <button [class.span-requested]="isSpanRequested" [hidden]="!acceptable" class="uk-button uk-button-primary uk-align-right"
+                (click)="accept()">Accept</button>
+
+
+
         </div>
+
     </div>
 </div>
 <hr />
@@ -38,67 +58,38 @@
 <textarea id="code" #editor class="editor">
     <div id="maincontent">
         <div>
-            <div>
-                <input type="text" id="i1" style="width: 200px" value="erqwerqwer">                    
+            <div style="display: inline-block">
+                <input type="text" style="width: 200px" value="">                    
             </div>
         </div>
         <div>
             <div style="display: inline-block">
-                <button id="n1">1</button>                
+                <button>1</button>                
             </div>
             <div style="display: inline-block">
-                <button id="n2">2</button>                
+                <button>2</button>                
             </div>
             <div style="display: inline-block">
-                <button id="n3">3</button>                
+                <button>3</button>                
             </div>
             <div style="display: inline-block">
-                <button id="c1">C</button>                
-            </div>
-        </div>
-    
-        <div>
-            <div style="display: inline-block">
-                <button id="n4">4</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="n5">5</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="n6">6</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="o1">+</button>                
+                <button>C</button>                
             </div>
         </div>
     
-        <div>
-            <div style="display: inline-block">
-                <button id="n7">7</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="n8">8</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="n9">9</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="o2">-</button>                
-            </div>
-        </div>
+  
     
-        <div>
+       
+    
+        <div>            
+                <div style="display: inline-block">
+                        <button>-</button>                
+                    </div>
             <div style="display: inline-block">
-                <button id="o3">/</button>                
+                <button>*</button>                
             </div>
             <div style="display: inline-block">
-                <button id="n0">0</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="o4">*</button>                
-            </div>
-            <div style="display: inline-block">
-                <button id="o5">=</button>                
+                <button>=</button>                
             </div>
         </div>
 </textarea>

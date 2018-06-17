@@ -5,7 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { storeTest } from './app/store/default-store';
 
-storeTest()
+//storeTest()
 
 
 if (environment.production) {
