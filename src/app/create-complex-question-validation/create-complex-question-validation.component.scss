@@ -1,0 +1,8 @@
+@import 'uikit/src/scss/variables.scss';
+@import 'uikit/src/scss/uikit.scss';
+
+.uk-badge {    
+    @extend  .uk-badge;
+    background-color: black;
+    color: yellow;
+}

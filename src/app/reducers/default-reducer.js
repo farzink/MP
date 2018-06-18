@@ -9,7 +9,8 @@ export const questionReducer = (state = {}, action) => {
                         id: action.payload.id,
                         description: action.payload.description,
                         hardness: action.payload.hardness,
-                        script: action.payload.script
+                        html: action.payload.html,
+                        rules: []
                     }
                 ]
             })
@@ -31,6 +32,19 @@ export const questionReducer = (state = {}, action) => {
                         return question
                     })
             })
+        case actions.UPDATE_QUESTION_RULES:
+        return Object.assign({}, state, {
+            questions: state
+                .questions
+                .map((question, index) => {
+                    if (action.payload.id === question.id) {
+                        question.rules = action.payload.rules
+                        return question
+                    }
+                    return question
+                })
+        })
+
         default:
             return state
     }

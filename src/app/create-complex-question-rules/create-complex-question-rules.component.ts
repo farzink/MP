@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { StoreService } from '../store/StoreService';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/mode/javascript/javascript'
@@ -10,7 +10,7 @@ import 'codemirror/addon/lint/lint'
 import 'codemirror/addon/lint/javascript-lint'
 
 import * as UIKit from 'uikit/dist/js/uikit.min.js'
-
+import * as actions from '../actions/default-action'
 @Component({
   selector: 'app-create-complex-question-rules',
   templateUrl: './create-complex-question-rules.component.html',
@@ -28,7 +28,7 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
 
 
   tempRuleStatus = false
-  constructor(private store: StoreService, private route: ActivatedRoute) { }
+  constructor(private store: StoreService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
@@ -64,7 +64,7 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
 
 
     if (this.question.length > 0)
-      this.prepareForRuling(this.question[0].script)
+      this.prepareForRuling(this.question[0].html)
 
   }
   clearHtmlRuleSection() {
@@ -79,27 +79,27 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
   }
   prepareForRuling(html) {
     this.htmlContainer.nativeElement.innerHTML = html
-    this.addHandlers(this.htmlContainer.nativeElement.getElementsByTagName("BUTTON"))
-    //this.addHandlers(this.htmlContainer.nativeElement.getElementsByTagName("INPUT"))
+    this.addHandlers(this.htmlContainer.nativeElement.getElementsByTagName("BUTTON"), "BUTTON")
+    this.addHandlers(this.htmlContainer.nativeElement.getElementsByTagName("INPUT"), "INPUT")
   }
   acceptRule() {
     let currentRules = this.tempRuleHtml.nativeElement.getElementsByTagName("BUTTON")
-    if(currentRules!= null && currentRules.length > 0){
-    let ruleToPush = []
-    for (var i = 0; i < currentRules.length; i++) {
-      ruleToPush.push(currentRules[i].innerText)
+    if (currentRules != null && currentRules.length > 0) {
+      let ruleToPush = []
+      for (var i = 0; i < currentRules.length; i++) {
+        ruleToPush.push(currentRules[i].innerText)
+      }
+      if (ruleToPush != []) {
+        this.rules.push(ruleToPush)
+      }
+      this.clearHtmlRuleSection()
+      UIKit.notification({ message: 'rule has been added successfully', status: 'success' })
+      this.tempRuleStatus = false
+      console.log(this.rules)
     }
-    if (ruleToPush != []) {
-      this.rules.push(ruleToPush)
-    }
-    this.clearHtmlRuleSection()
-    UIKit.notification({ message: 'rule has been added successfully', status: 'success' })
-    this.tempRuleStatus = false
-    console.log(this.rules)
-  }
   }
 
-  addHandlers(elements) {
+  addHandlers(elements, type) {
     for (var i = 0; i < elements.length; i++) {
       {
         if (elements[i].tagName === "BUTTON" || elements[i].tagName === "INPUT") {
@@ -108,7 +108,12 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
               let rb = document.createElement("button")
               rb.innerText = e.target.id
               rb.classList.add("uk-button");
-              rb.classList.add("uk-button-secondary");
+              if (type === "BUTTON") {
+                rb.classList.add("uk-button-secondary");
+              }
+              if (type === "INPUT") {
+                rb.classList.add("uk-button-primary");
+              }
               rb.addEventListener("click", (e) => {
                 // @ts-ignore
                 e.target.remove()
@@ -128,8 +133,19 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
     console.log(index)
     this.rules.splice(index, 1)
   }
-  confirmRules(){
+  confirmRules() {
+    if (this.question.length > 0) {
 
+      this.store.getDefaultStore()
+        .dispatch(actions.updateQuestionRules({
+          id: this.question[0].id,
+          rules: this.rules
+        }))
+
+      this.router.navigate([`/supervisor/questions/complex/validation/create/${this.question[0].id}`])
+    }
+    //console.log(this.store.getDefaultState())
+    
   }
 }
 

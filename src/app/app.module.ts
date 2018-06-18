@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateSimpleQuestionComponent } from './create-simple-question/create-simple-question.component';
 import { CreateComplexQuestionComponent } from './create-complex-question/create-complex-question.component';
 import { CreateComplexQuestionRulesComponent } from './create-complex-question-rules/create-complex-question-rules.component';
+import { CreateComplexQuestionValidationComponent } from './create-complex-question-validation/create-complex-question-validation.component';
 
 
 
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
   { path: 'supervisor/questions/simple/create', component: CreateSimpleQuestionComponent},
   { path: 'supervisor/questions/complex/create', component: CreateComplexQuestionComponent},
   { path: 'supervisor/questions/complex/rules/create/:id', component: CreateComplexQuestionRulesComponent},
+  { path: 'supervisor/questions/complex/validation/create/:id', component: CreateComplexQuestionValidationComponent},
   { path: '**', component: PagenotfoundComponent }
 ];
  
@@ -47,7 +49,8 @@ const appRoutes: Routes = [
     UserQuestionsComponent,
     CreateSimpleQuestionComponent,
     CreateComplexQuestionComponent,
-    CreateComplexQuestionRulesComponent
+    CreateComplexQuestionRulesComponent,
+    CreateComplexQuestionValidationComponent
   ],
   imports: [
     BrowserModule,

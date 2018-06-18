@@ -171,7 +171,7 @@ export class CreateComplexQuestionComponent implements OnInit {
     let id = this.store.getDefaultStore().dispatch(actions.addQuestion({
       description: this.questionDescription.nativeElement.innerText,
       hardness: this.hardness,
-      script: this.htmlContainer.nativeElement.innerHTML
+      html: this.htmlContainer.nativeElement.innerHTML
     })).payload.id
     console.log(id)
     this.router.navigate([`/supervisor/questions/complex/rules/create/${id}`])

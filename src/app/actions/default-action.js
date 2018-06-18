@@ -1,6 +1,7 @@
 export const ADD_QUESTION = "ADD_QUESTION"
 export const REMOVE_QUESTION = "REMOVE_QUESTION"
 export const UPDATE_QUESTION = "UPDATE_QUESTION"
+export const UPDATE_QUESTION_RULES = "UPDATE_QUESTION_RULES"
 
 import * as uuid4 from 'uuid/v4'
 
@@ -22,6 +23,12 @@ export const remvoeQuestion = (question) => {
 export const updateQuestion = (question) => {
     return {
         type: UPDATE_QUESTION,
+        payload: question
+    }
+}
+export const updateQuestionRules = (question) => {
+    return {
+        type: UPDATE_QUESTION_RULES,
         payload: question
     }
 }
