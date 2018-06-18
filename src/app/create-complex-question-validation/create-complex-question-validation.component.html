@@ -30,7 +30,7 @@
 
 </div>
 <div class="uk-container">
-        <button class="uk-button uk-button-default uk-align-right" [hidden]="!testable" (click)="testRules()">Test Rules</button>
+    <button class="uk-button uk-button-default uk-align-right" [hidden]="!testable" (click)="testRules()">Test Rules</button>
     <!-- <p class="uk-margin">
         <button class="uk-button uk-button-default" (click)="addRule()">Add Rule</button>
         <button [hidden]="rules.length == 0" class="uk-button uk-button-primary" (click)="confirmRules()">Confirm Rules</button>
@@ -57,25 +57,26 @@
     <ul class="uk-list uk-list-striped">
         <li *ngFor="let r of question?.rules; let n = index">
             <h4 class="uk-heading-bullet">Rule {{n+1}}</h4>
+            <h4 class="uk-heading-bullet">result {{r.result}}</h4>
             <div class="grid">
                 <div class="uk-width-1-1@m uk-box-shadow-medium">
-                    <button *ngFor="let c of r; let rn = index" class="uk-button uk-button-default">
+                    <button *ngFor="let c of r.rule; let rn = index" class="uk-button uk-button-default">
                         <!-- <h3 class="uk-heading-bullet">{{c}}</h3> -->
                         <button class="uk-button uk-button-default" type="button">{{c.id}}</button>
-                        <span class="uk-badge">Status</span>
-                        <div uk-dropdown="">
-                            <ul class="uk-nav uk-dropdown-nav">
-                                <li (click)="setType($event, 'click', n, rn)">
-                                    <a href="#">Click</a>
-                                </li>
-                                <li (click)="setType($event, 'double-click', n, rn)">
-                                    <a href="#">Double Click</a>
-                                </li>
-                                <li (click)="setType($event, 'value-check', n, rn)">
-                                    <a href="#">Value</a>
-                                </li>
-                            </ul>
-                        </div>
+                    <span class="uk-badge">Status</span>
+                    <div uk-dropdown="">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li (click)="setType($event, 'click', n, rn)">
+                                <a href="#">Click</a>
+                            </li>
+                            <li (click)="setType($event, 'double-click', n, rn)">
+                                <a href="#">Double Click</a>
+                            </li>
+                            <li (click)="setType($event, 'value-check', n, rn)">
+                                <a href="#">Value</a>
+                            </li>
+                        </ul>
+                    </div>
                     </button>
                 </div>
 

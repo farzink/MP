@@ -87,7 +87,10 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
     if (currentRules != null && currentRules.length > 0) {
       let ruleToPush = []
       for (var i = 0; i < currentRules.length; i++) {
-        ruleToPush.push(currentRules[i].innerText)
+        ruleToPush.push({
+          id: currentRules[i].innerText,
+          type: currentRules[i].dataset.tn
+        })
       }
       if (ruleToPush != []) {
         this.rules.push(ruleToPush)
@@ -110,9 +113,11 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
               rb.classList.add("uk-button");
               if (type === "BUTTON") {
                 rb.classList.add("uk-button-secondary");
+                rb.dataset.tn = "BUTTON"
               }
               if (type === "INPUT") {
                 rb.classList.add("uk-button-primary");
+                rb.dataset.tn = "INPUT"
               }
               rb.addEventListener("click", (e) => {
                 // @ts-ignore
@@ -140,12 +145,16 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
         .dispatch(actions.updateQuestionRules({
           id: this.question[0].id,
           rules: this.rules.map(r => {
-            return r.map(re => {
-              return {
-                id: re,
-                action: ""
-              }
-            })
+            return {
+              rule: r.map(re => {
+                return {
+                  id: re.id,
+                  type: re.type,
+                  action: ""
+                }
+              }),
+              result: ""
+            }
           })
         }))
 

@@ -31,9 +31,9 @@ export class CreateComplexQuestionValidationComponent implements OnInit {
         if (q.id == id)
           return q
       })
-    if (q.length > 0){
+    if (q.length > 0) {
       this.question = q[0]
-      if(this.question.rules.length > 0)
+      if (this.question.rules.length > 0)
         this.testable = true
       this.bindHTML(this.question.html)
     }
@@ -52,26 +52,67 @@ export class CreateComplexQuestionValidationComponent implements OnInit {
 
     })
   }
-  bindHTML(html){
+  bindHTML(html) {
     this.htmlContainer.nativeElement.innerHTML = html
   }
-  apply(){
+  apply() {
     this.bindHTML(this.question.html)
     eval(this.c.getValue())
   }
-  setType(e, type , rule, re){
-    if(type === "click"){
+  setType(e, type, rule, re) {
+    if (type === "click") {
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].innerHTML = "Click"
-      this.question.rules[rule][re].action = "click"
-    }else if(type === "double-click"){
+      e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].style.color = "yellow"
+      this.question.rules[rule].rule[re].action = "click"
+    } else if (type === "double-click") {
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].innerHTML = "Double-Click"
-      this.question.rules[rule][re].action = "double-click"
+      e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].style.color = "yellow"
+      this.question.rules[rule].rule[re].action = "double-click"
     }
-    else if(type === "value-check"){
+    else if (type === "value-check") {
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].innerHTML = "Value-Check"
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].style.color = "#44ff1a"
-      this.question.rules[rule][re].action = "value-check"
+      this.question.rules[rule].rule[re].action = "value-check"
     }
     //console.log(this.question.rules)
+  }
+
+  testRules() {
+    //in this implementatin for each rule the whole markup
+    //is reset while there could be another setting to
+    //hole the state
+    for (var rule = 0; rule < this.question.rules.length; rule++) {
+      this.apply()
+      for (var subRule = 0; subRule < this.question.rules[rule].rule.length; subRule++) {
+        let sr = this.question.rules[rule].rule[subRule]
+        this.question.rules[rule].result = this.applySubrule(sr)        
+      }
+    }
+    this.apply()
+  }
+  applySubrule(subrule) {
+    switch (subrule.action) {
+      case "click":
+        return this.executeSurule("click", subrule.id, subrule.type)
+      case "double-click":
+        return this.executeSurule("double-click", subrule.id, subrule.type)
+      case "value-check":
+        return this.executeSurule("value-check", subrule.id, subrule.type)
+      default:
+        return null;
+    }
+  }
+  executeSurule(action, id, type) {
+    var element = this.htmlContainer.nativeElement.getElementsByTagName(type)[id]
+    //let e = document.createEvent("")
+    //e.initEvent("click", false)
+    switch (action) {
+      case "value-check":
+        return (element.value)        
+      default:
+        element.click()
+        return null
+    }
+
   }
 }
