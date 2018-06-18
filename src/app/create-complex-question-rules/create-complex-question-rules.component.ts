@@ -139,13 +139,20 @@ export class CreateComplexQuestionRulesComponent implements OnInit {
       this.store.getDefaultStore()
         .dispatch(actions.updateQuestionRules({
           id: this.question[0].id,
-          rules: this.rules
+          rules: this.rules.map(r => {
+            return r.map(re => {
+              return {
+                id: re,
+                action: ""
+              }
+            })
+          })
         }))
 
       this.router.navigate([`/supervisor/questions/complex/validation/create/${this.question[0].id}`])
     }
-    //console.log(this.store.getDefaultState())
-    
+    console.log(this.store.getDefaultState())
+
   }
 }
 

@@ -25,11 +25,12 @@
 
     <div class="uk-card uk-card-body uk-width-1-2@m">
         <textarea id="code" #editor class="editor"></textarea>
-        <button class="uk-button uk-button-default uk-align-right" (click)="apply()">Apply</button>
+        <button class="uk-button uk-button-default" (click)="apply()">Apply</button>
     </div>
 
 </div>
 <div class="uk-container">
+        <button class="uk-button uk-button-default uk-align-right" [hidden]="!testable" (click)="testRules()">Test Rules</button>
     <!-- <p class="uk-margin">
         <button class="uk-button uk-button-default" (click)="addRule()">Add Rule</button>
         <button [hidden]="rules.length == 0" class="uk-button uk-button-primary" (click)="confirmRules()">Confirm Rules</button>
@@ -58,19 +59,19 @@
             <h4 class="uk-heading-bullet">Rule {{n+1}}</h4>
             <div class="grid">
                 <div class="uk-width-1-1@m uk-box-shadow-medium">
-                    <button *ngFor="let c of r" class="uk-button uk-button-default">
+                    <button *ngFor="let c of r; let rn = index" class="uk-button uk-button-default">
                         <!-- <h3 class="uk-heading-bullet">{{c}}</h3> -->
-                        <button class="uk-button uk-button-default" type="button">{{c}}</button>
+                        <button class="uk-button uk-button-default" type="button">{{c.id}}</button>
                         <span class="uk-badge">Status</span>
                         <div uk-dropdown="">
                             <ul class="uk-nav uk-dropdown-nav">
-                                <li (click)="setType($event, 'click')">
+                                <li (click)="setType($event, 'click', n, rn)">
                                     <a href="#">Click</a>
                                 </li>
-                                <li (click)="setType($event, 'double-click')">
+                                <li (click)="setType($event, 'double-click', n, rn)">
                                     <a href="#">Double Click</a>
                                 </li>
-                                <li (click)="setType($event, 'value-check')">
+                                <li (click)="setType($event, 'value-check', n, rn)">
                                     <a href="#">Value</a>
                                 </li>
                             </ul>

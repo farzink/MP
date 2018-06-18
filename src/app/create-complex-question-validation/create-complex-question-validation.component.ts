@@ -19,6 +19,7 @@ import { style } from '@angular/animations';
 export class CreateComplexQuestionValidationComponent implements OnInit {
   question = null
   c: any;
+  testable = false
   @ViewChild('editor') editor: ElementRef
   @ViewChild('htmlContainer') htmlContainer: ElementRef
   constructor(private store: StoreService, private route: ActivatedRoute) { }
@@ -32,6 +33,8 @@ export class CreateComplexQuestionValidationComponent implements OnInit {
       })
     if (q.length > 0){
       this.question = q[0]
+      if(this.question.rules.length > 0)
+        this.testable = true
       this.bindHTML(this.question.html)
     }
   }
@@ -56,15 +59,19 @@ export class CreateComplexQuestionValidationComponent implements OnInit {
     this.bindHTML(this.question.html)
     eval(this.c.getValue())
   }
-  setType(e, type){
+  setType(e, type , rule, re){
     if(type === "click"){
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].innerHTML = "Click"
+      this.question.rules[rule][re].action = "click"
     }else if(type === "double-click"){
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].innerHTML = "Double-Click"
+      this.question.rules[rule][re].action = "double-click"
     }
     else if(type === "value-check"){
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].innerHTML = "Value-Check"
       e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("SPAN")[0].style.color = "#44ff1a"
+      this.question.rules[rule][re].action = "value-check"
     }
+    //console.log(this.question.rules)
   }
 }
