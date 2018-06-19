@@ -1,27 +1,55 @@
 <h2>Simple Question</h2>
-<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
-    <button class="uk-button uk-button-default" type="button">Easy</button>
-    <div uk-dropdown="">
-        <ul class="uk-nav uk-dropdown-nav">
-            <li><a href="#">Easy</a></li>
-            <li><a href="#">Medium</a></li>
-            <li><a href="#">Hard</a></li>
-        </ul>
+<div class="uk-grid">
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+
+        <h3 class="uk-card-title">Question Description</h3>
+        <textarea class="uk-textarea" rows="5" placeholder="Body"></textarea>
     </div>
-    <div class="uk-card-badge uk-label">Hardness</div>
-    <h3 class="uk-card-title">Question Description</h3>
-    <textarea class="uk-textarea" rows="5" placeholder="Body"></textarea>
-</div>
-<hr />
-<button #themeButton class="uk-button" (click)="themeButtonClicked()">Theme</button>
-<textarea id="code" #editor class="editor">
+
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+
+        <button class="uk-button uk-button-default" type="button">Hardness</button>
+        <div uk-dropdown="">
+            <ul class="uk-nav uk-dropdown-nav">
+                <li (click)="setHardness(1)">
+                    <a href="#">Easy</a>
+                </li>
+                <li (click)="setHardness(2)">
+                    <a href="#">Medium</a>
+                </li>
+                <li (click)="setHardness(3)">
+                    <a href="#">Hard</a>
+                </li>
+            </ul>
+        </div>
+        <div class="uk-card-badge uk-label">{{ hardness }}</div>
+        <h3 class="uk-card-title">Question Entrypoint</h3>
+        <input #entryPoint class="uk-input" type="text" placeholder="Entrypoint" />
+    </div>
+
+    <div class="uk-width-1-1@m uk-box-shadow-large uk-border-rounded uk-margin">
+        <button #themeButton class="uk-button" (click)="themeButtonClicked()">Theme</button>
+        <textarea id="code" #editor class="editor">
 </textarea>
-<hr />
 
-<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+    </div>
 
-    <h3 class="uk-card-title">Question Inputs</h3>
-    <textarea class="uk-textarea" rows="1" placeholder="inputs"></textarea>
-    <button class="uk-margin uk-button uk-button-default uk-align-right" (click)="verify()">Verify</button>
+
+
+
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+
+        <h3 class="uk-card-title">Parameters List</h3>
+        <input #parameters class="uk-input" placeholder="inputs" />
+        <button class="uk-margin uk-button uk-button-default uk-align-right" (click)="verify()">Verify</button>
+
+    </div>
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+
+        <h3 class="uk-card-title">Result</h3>
+        <div #resultHtml></div>       
+
+    </div>
+
 
 </div>
