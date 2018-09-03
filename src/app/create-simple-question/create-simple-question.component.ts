@@ -2,6 +2,14 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import * as UIKit from 'uikit/dist/js/uikit.min.js'
 import 'codemirror/mode/javascript/javascript'
+
+
+import * as http from 'superagent'
+
+import { getUrlFor } from '../utility/endpoints';
+import { attachAuthHeader } from '../utility/auth';
+import { Router } from '@angular/router';
+
 @Component({ selector: 'app-create-simple-question', templateUrl: './create-simple-question.component.html', styleUrls: ['create-simple-question.component.scss'] })
 export class CreateSimpleQuestionComponent implements OnInit {
   theme: string = "default"
@@ -10,9 +18,11 @@ export class CreateSimpleQuestionComponent implements OnInit {
   @ViewChild('entryPoint') entryPoint: ElementRef
   @ViewChild('resultHtml') resultHtml: ElementRef
   @ViewChild('parameters') parameters: ElementRef
+  @ViewChild('questionDescriptionHtml') questionDescriptionHtml: ElementRef
+  @ViewChild('questionTitle') questionTitle: ElementRef
 
 
-  constructor() { }
+  constructor(private router: Router) { }
   hardness = "EASY"
   ngOnInit() { }
   ngAfterViewInit() {
@@ -60,7 +70,7 @@ export class CreateSimpleQuestionComponent implements OnInit {
         if (this.entryPoint !== "") {
           let params = this.parameters.nativeElement.value.split(",")
             .map(e => parseInt(e.trim()))
-          let func =window[this.entryPoint.nativeElement.value]
+          let func = window[this.entryPoint.nativeElement.value]
           // for (var i = 0; i < params.length; i++) {
           //   func.arguments[i] = params[i]
           // }
@@ -76,6 +86,30 @@ export class CreateSimpleQuestionComponent implements OnInit {
 
   }
 
+
+  create() {   
+    const parameters = this.parameters.nativeElement.value.split(",")    
+    const model = {
+      title: this.questionTitle.nativeElement.value,
+      description: this.questionDescriptionHtml.nativeElement.value,
+      hardness: this.hardness,
+      entryPoint: this.entryPoint.nativeElement.value,
+      body: this.c.getValue(),
+      questionType: 0,      
+      parametersList: parameters
+    }  
+    
+    
+    attachAuthHeader(http.post(getUrlFor("questions/simple")))    
+      .send(model)      
+      .end((err, res) => {
+        if(res.status === 201){
+          
+          this.router.navigate(['/supervisor/questions/simple']);
+        }
+      })
+  }
+
   setHardness(value) {
     if (value === 1) {
       this.hardness = "EASY"
@@ -87,3 +121,4 @@ export class CreateSimpleQuestionComponent implements OnInit {
   }
 
 }
+

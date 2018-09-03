@@ -1,17 +1,53 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="uk-container">
     <nav class="uk-navbar">
-        <ul class="uk-navbar-nav uk-navbar-inverse">
-            <li>
-                <a class="uk-navbar-nav-subtitle" routerLink="/supervisor/questions/create" routerLinkActive="active">Create Question</a>
-            </li>
-            <li>
-                <a class="uk-navbar-nav-subtitle" routerLink="/user-questions" routerLinkActive="">User Questions</a>
-            </li>
-            <!-- <li>
+        <div class="uk-navbar-left">
+            <ul [hidden]="!isAdmin()" class="uk-navbar-nav uk-navbar-inverse">
+                <li>
+                    <a class="uk-navbar-nav-subtitle" routerLink="/supervisor/questions/create" routerLinkActive="active">Create
+                        Question
+                    </a>
+                </li>
+                <li>
+                    <a class="uk-navbar-nav-subtitle" routerLink="/supervisor/students" routerLinkActive="">Students</a>
+                </li>
+                <li>
+                    <a class="uk-navbar-nav-subtitle" routerLink="/supervisor/questions/assignments" routerLinkActive="">Assignments</a>
+                </li>
+                <!-- <li>
                 <a class="uk-navbar-nav-subtitle" routerLink="/test">test</a>
             </li> -->
-        </ul>
+            </ul>
+
+            <ul [hidden]="!isStudent()" class="uk-navbar-nav uk-navbar-inverse">
+                    <li>
+                        <a class="uk-navbar-nav-subtitle" routerLink="/student/questions" routerLinkActive="active">Review Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a class="uk-navbar-nav-subtitle" routerLink="/student/history" routerLinkActive="">history</a>
+                    </li>
+                    <!-- <li>
+                        <a class="uk-navbar-nav-subtitle" routerLink="/supervisor/questions/assignments" routerLinkActive="">Assignments</a>
+                    </li> -->
+                    <!-- <li>
+                    <a class="uk-navbar-nav-subtitle" routerLink="/test">test</a>
+                </li> -->
+                </ul>
+        </div>
+        <div class="uk-navbar-right">
+
+            <ul class="uk-navbar-nav">                
+                <li [hidden]="!isSignedIn()">
+                    <a routerLink="/">welcome {{getUsername()}}!</a>                   
+                </li>
+                <li [hidden]="!isSignedIn()"><a (click)="logout()">sign out</a></li>
+                <li [hidden]="isSignedIn()"><a routerLink="/signin">sign in</a></li>
+            </ul>
+
+        </div>
     </nav>
-    <router-outlet></router-outlet>
+    
+        <router-outlet></router-outlet>
+    
 </div>

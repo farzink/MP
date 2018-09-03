@@ -2,8 +2,12 @@
 <div class="uk-grid">
     <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
 
+
+            <h3 class="uk-card-title">Question Title</h3>
+            <textarea #questionTitle class="uk-textarea" rows="5" placeholder="title"></textarea>
+            
         <h3 class="uk-card-title">Question Description</h3>
-        <textarea class="uk-textarea" rows="5" placeholder="Body"></textarea>
+        <textarea #questionDescriptionHtml class="uk-textarea" rows="5" placeholder="question description"></textarea>
     </div>
 
     <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
@@ -42,6 +46,7 @@
         <h3 class="uk-card-title">Parameters List</h3>
         <input #parameters class="uk-input" placeholder="inputs" />
         <button class="uk-margin uk-button uk-button-default uk-align-right" (click)="verify()">Verify</button>
+        <button class="uk-margin uk-button uk-button-default uk-align-right" (click)="create()">Create</button>
 
     </div>
     <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">

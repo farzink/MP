@@ -5,12 +5,14 @@ export const slideInDownAnimation =
   trigger('routeAnimation', [
     state('*',
       style({
+        width: "100%",
         opacity: 1,
         transform: 'translateX(0)'
       })
     ),
     transition(':enter', [
       style({
+        width: "100%",
         opacity: 0,
         transform: 'translateX(-100%)'
       }),
@@ -18,6 +20,7 @@ export const slideInDownAnimation =
     ]),
     transition(':leave', [
       animate('0.5s ease-out', style({
+        width: "100%",
         opacity: 0,
         transform: 'translateY(100%)'
       }))

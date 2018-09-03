@@ -1,0 +1,24 @@
+<article class="uk-article">
+
+    <h1 class="uk-article-title">Complex Question</h1>
+    <button class="uk-button uk-button-danger" (click)="delete()">delete</button>
+    <p class="uk-article-meta">{{question.title}}</p>
+
+    <p class="uk-text-lead">{{question.description}}</p>
+     
+    <p>{{question.hardness}}</p>
+
+    <div class="uk-grid-small uk-child-width-auto uk-width-1-1" uk-grid>
+      <div class="uk-width-2-3">
+        
+            {{question.script}}
+        
+      </div>
+      <div class="uk-width-2-3">
+        
+            {{question.body}}
+        
+      </div>
+    </div>
+
+</article>

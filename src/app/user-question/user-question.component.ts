@@ -17,6 +17,14 @@ import 'codemirror/mode/javascript/javascript'
 
 //import 'codemirror/theme/ambiance.css'
 import { slideInDownAnimation } from '../animations';
+import { getUrlFor, http } from '../utility/endpoints';
+import { StoreService } from '../store/StoreService';
+import { attachAuthHeader } from '../utility/auth';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
+import * as UIKit from 'uikit/dist/js/uikit.min.js'
+
 
 @Component({
   selector: 'app-user-question',
@@ -26,27 +34,29 @@ import { slideInDownAnimation } from '../animations';
 })
 export class UserQuestionComponent implements OnInit, AfterViewInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display')   display = 'block';
-  @HostBinding('style.position')  position = 'absolute';
+  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.position') position = 'absolute';
 
   theme: string = "default"
   c: any;
   @ViewChild('editor') editor: ElementRef
 
 
+  readonly taskUrl = getUrlFor("tasks")
+  readonly questionUrl = getUrlFor("questions")
+  task = null
+  question = null
 
 
 
 
 
-  
 
 
-  constructor() {
-    
-    
+  constructor(private store: StoreService, private route: ActivatedRoute, private router: Router) {
+
   }
-  ngAfterViewInit() {        
+  ngAfterViewInit() {
     this.c = CodeMirror.fromTextArea(this.editor.nativeElement, {
       lineNumbers: true,
       extraKeys: { "Ctrl-Space": "autocomplete" },
@@ -57,16 +67,59 @@ export class UserQuestionComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit() {
+    let id = this.route.snapshot.paramMap.get('id')
+    let taskUrl = `${this.taskUrl}/${id}`
+    attachAuthHeader(http.get(taskUrl))
+      .end((err, res) => {
+        const { body } = res;        
+        this.task = body
+        //this.c.setValue(body.body)
+        let questionUrl = `${this.questionUrl}/${body.questionId}`
+        let that = this
+        attachAuthHeader(http.get(questionUrl))
+          .end((err, res) => {
+            const { body } = res;            
+            that.question = body
+          });
 
+
+      });
   }
-  themeButtonClicked() {        
+  themeButtonClicked() {
     if (this.c.getOption("theme") === "default")
       this.c.setOption("theme", "ambiance")
-    else    
+    else
       this.c.setOption("theme", "default")
   }
-  valueButtonClicked(){
-    alert(this.c.getValue())
+  valueButtonClicked() {
+    eval(this.c.getValue())
   }
 
+  submit() {
+
+    const result = this.c.getValue();
+
+    if (result == "") {
+      UIKit.notification({ message: 'there is no code to submit', status: 'danger' })
+    } else {
+      const model = {
+        questionId: this.question.id,
+        content: result
+      }
+
+
+      
+      attachAuthHeader(http.post(getUrlFor(`tasks/simple/${this.task.id}`)))    
+      .send(model)      
+      .end((err, res) => {
+        if(res.status === 200){
+          UIKit.notification({ message: 'successfully submitted', status: 'success' })
+          this.router.navigate(['/student/tasks']);
+        }
+      })
+  }
 }
+}
+
+
+

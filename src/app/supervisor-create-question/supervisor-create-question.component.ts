@@ -14,10 +14,14 @@ export class SupervisorCreateQuestionComponent implements OnInit {
   ngOnInit() {
   }
   createQuestion(kind) {
-    if (kind == 1)
-      this.router.navigate(['/supervisor/questions/simple/create']);
-    else if (kind == 2)
-      this.router.navigate(['/supervisor/questions/complex/create']);
+    if (kind == 1){
+      //this.router.navigate(['/supervisor/questions/simple/create']);
+      this.router.navigate(['/supervisor/questions/simple']);
+    }
+    else if (kind == 2){
+      //this.router.navigate(['/supervisor/questions/complex/create']);
+      this.router.navigate(['/supervisor/questions/complex']);
+    }
   }
 
 }

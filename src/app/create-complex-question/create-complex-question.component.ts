@@ -32,6 +32,7 @@ export class CreateComplexQuestionComponent implements OnInit {
   @ViewChild('selectedControlHtml') selectedControlHtml: ElementRef
   @ViewChild('textifier') textifier: ElementRef
   @ViewChild('questionDescription') questionDescription: ElementRef
+  @ViewChild('questionTitle') questionTitle: ElementRef
   
   defaultZoomFactor = 14
   currentZoomFactor = 14
@@ -169,7 +170,8 @@ export class CreateComplexQuestionComponent implements OnInit {
   }
   accept(){
     let id = this.store.getDefaultStore().dispatch(actions.addQuestion({
-      description: this.questionDescription.nativeElement.innerText,
+      description: this.questionDescription.nativeElement.value,
+      title: this.questionTitle.nativeElement.value,
       hardness: this.hardness,
       html: this.htmlContainer.nativeElement.innerHTML
     })).payload.id

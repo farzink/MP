@@ -1,0 +1,20 @@
+<article class="uk-article">
+
+    <h1 class="uk-article-title">Simple Question</h1>
+    <button class="uk-button uk-button-danger" (click)="delete()">delete</button>
+    <p class="uk-article-meta">{{question.title}}</p>
+
+    <p class="uk-text-lead">{{question.description}}</p>
+     
+    <p>{{question.hardness}}</p>
+
+    <div class="uk-grid-small uk-child-width-auto" uk-grid>
+        <div>
+            {{question.entryPoint}}
+        </div>
+        <div>
+            {{question.body}}
+        </div>
+    </div>
+
+</article>

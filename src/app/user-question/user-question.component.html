@@ -1,16 +1,50 @@
-<button #themeButton class="uk-button" (click)="themeButtonClicked()">Theme</button>
-<textarea id="code" #editor class="editor">
-  function findSequence(goal) {
-    function find(start, history) {
-      if (start == goal)
-        return history;
-      else if (start > goal)
-        return null;
-      else
-        return find(start + 5, "(" + history + " + 5)") ||
-               find(start * 3, "(" + history + " * 3)");
-    }
-    return find(1, "1");
-  }
-</textarea>
-<button class="uk-button" (click)="valueButtonClicked()">Get Value</button>
+<div class="uk-container">
+
+  <div class="uk-grid">
+    <div class="uk-width-1-1@s">
+
+      <article class="uk-article">
+
+        <h1 class="uk-article-title">{{question?.title}}</h1>
+
+        <p class="uk-article-meta">Written by your instructor</p>        
+
+        <p>{{question?.description}}</p>
+
+        <div class="uk-grid-small uk-child-width-auto" uk-grid>
+
+            <p class="uk-article-meta">Entry Point Name (the main function name should be as same as instructed here): "{{question?.entryPoint}}"</p>        
+          <!-- <div>
+            <a class="uk-button uk-button-text" href="#">Read more</a>
+          </div>
+          <div>
+            <a class="uk-button uk-button-text" href="#">5 Comments</a>
+          </div> -->
+        </div>
+
+      </article>
+    </div>
+
+    <br>
+
+
+
+
+
+    <div class="uk-width-1-1@s">
+      <button #themeButton class="uk-button" (click)="themeButtonClicked()">Theme</button>
+      <textarea id="code" #editor class="editor"></textarea>
+    </div>
+
+  </div>
+
+  <div class="uk-grid">
+    <div class="uk-width-1-4@s">
+  <button class="uk-button" (click)="valueButtonClicked()">Evaluate</button>
+</div>
+
+<div class="uk-width-1-4@s">
+  <button class="uk-button" (click)="submit()">submit</button>
+</div>
+
+</div>

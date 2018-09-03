@@ -16,20 +16,48 @@ import { CreateSimpleQuestionComponent } from './create-simple-question/create-s
 import { CreateComplexQuestionComponent } from './create-complex-question/create-complex-question.component';
 import { CreateComplexQuestionRulesComponent } from './create-complex-question-rules/create-complex-question-rules.component';
 import { CreateComplexQuestionValidationComponent } from './create-complex-question-validation/create-complex-question-validation.component';
+import { HomeComponent } from './home/home.component';
+import { ListComplexQuestionsComponent } from './list-complex-questions/list-complex-questions.component';
+import { ViewComplexQuestionComponent } from './view-complex-question/view-complex-question.component';
+
+import { ViewSimpleQuestionComponent } from './view-simple-question/view-simple-question.component';
+import { ListSimpleQuestionsComponent } from './list-simple-questions/list-simple-questions.component';
+import { AuthGuard } from './utility/authgaurd';
+import { AdminAuthGaurd } from './utility/adminauthguard';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { ListStudentsComponent } from './list-students/list-students.component';
+import { ViewStudentComponent } from './view-student/view-student.component';
+import { SupervisorQuestionAssignmentComponent } from './supervisor-question-assignment/supervisor-question-assignment.component';
+import { SupervisorQuestionAssignComponent } from './supervisor-question-assign/supervisor-question-assign.component';
+import { StudentHistoryComponent } from './student-history/student-history.component';
+import { UserComplexQuestionComponent } from './user-complex-question/user-complex-question.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 
 
 const appRoutes: Routes = [
   
-  { path: 'test', component: TestComponent },
-  { path: 'supervisor/questions/create', component: SupervisorCreateQuestionComponent },
-  { path: 'user-question', component: UserQuestionComponent },
-  { path: 'user-questions', component: UserQuestionsComponent },
-  { path: 'supervisor/questions/simple/create', component: CreateSimpleQuestionComponent},
-  { path: 'supervisor/questions/complex/create', component: CreateComplexQuestionComponent},
-  { path: 'supervisor/questions/complex/rules/create/:id', component: CreateComplexQuestionRulesComponent},
-  { path: 'supervisor/questions/complex/validation/create/:id', component: CreateComplexQuestionValidationComponent},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'signin', component: SignInComponent },
+  { path: 'signup', component: SignUpComponent },
+  { path: 'supervisor/questions/create', component: SupervisorCreateQuestionComponent, canActivate: [AdminAuthGaurd] },
+  { path: 'student/tasks/simple/:id', component: UserQuestionComponent, canActivate: [AuthGuard] },
+  { path: 'student/tasks/complex/:id', component: UserComplexQuestionComponent, canActivate: [AuthGuard] },
+  { path: 'student/questions', component: UserQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'student/history', component: StudentHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'supervisor/questions/simple/create', component: CreateSimpleQuestionComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/complex/create', component: CreateComplexQuestionComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/complex/rules/create/:id', component: CreateComplexQuestionRulesComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/complex/validation/create/:id', component: CreateComplexQuestionValidationComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/complex', component: ListComplexQuestionsComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/simple', component: ListSimpleQuestionsComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/students', component: ListStudentsComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/complex/view/:id', component: ViewComplexQuestionComponent, canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/simple/view/:id', component: ViewSimpleQuestionComponent,canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/studetns/view/:id', component: ViewStudentComponent,canActivate: [AdminAuthGaurd]},
+  { path: 'supervisor/questions/assignments', component: SupervisorQuestionAssignmentComponent,canActivate: [AdminAuthGaurd]},  
+  { path: 'supervisor/questions/assign/:id', component: SupervisorQuestionAssignComponent,canActivate: [AdminAuthGaurd]},  
   { path: '**', component: PagenotfoundComponent }
 ];
  
@@ -50,7 +78,20 @@ const appRoutes: Routes = [
     CreateSimpleQuestionComponent,
     CreateComplexQuestionComponent,
     CreateComplexQuestionRulesComponent,
-    CreateComplexQuestionValidationComponent
+    CreateComplexQuestionValidationComponent,
+    HomeComponent,
+    ListComplexQuestionsComponent,
+    ViewComplexQuestionComponent,    
+    ViewSimpleQuestionComponent,
+    ListSimpleQuestionsComponent,
+    SignInComponent,
+    ListStudentsComponent,
+    ViewStudentComponent,
+    SupervisorQuestionAssignmentComponent,
+    SupervisorQuestionAssignComponent,
+    StudentHistoryComponent,
+    UserComplexQuestionComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +104,9 @@ const appRoutes: Routes = [
     )
   ],
   providers: [
-    StoreService
+    StoreService,
+    AuthGuard,
+    AdminAuthGaurd
   ],
   bootstrap: [AppComponent]
 })

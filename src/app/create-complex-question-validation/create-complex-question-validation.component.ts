@@ -8,7 +8,12 @@ import 'codemirror/addon/hint/javascript-hint'
 import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/lint/lint'
 import 'codemirror/addon/lint/javascript-lint'
+import { attachAuthHeader } from '../utility/auth';
 import { style } from '@angular/animations';
+import * as http from 'superagent';
+import { getUrlFor } from '../utility/endpoints';
+import * as UIKit from 'uikit/dist/js/uikit.min.js'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,10 +27,12 @@ export class CreateComplexQuestionValidationComponent implements OnInit {
   testable = false
   @ViewChild('editor') editor: ElementRef
   @ViewChild('htmlContainer') htmlContainer: ElementRef
-  constructor(private store: StoreService, private route: ActivatedRoute) { }
+  id;
+  constructor(private store: StoreService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
+    this.id = id;
     let q = this.store.getDefaultState()
       .questions.filter(q => {
         if (q.id == id)
@@ -115,4 +122,30 @@ export class CreateComplexQuestionValidationComponent implements OnInit {
     }
 
   }
+
+  create() {   
+    
+      if(this.question != null){    
+    const model = {
+      title: this.question.title,
+      description: this.question.description,
+      hardness: this.question.hardness,
+      entryPoint: "",
+      body: this.question.html,
+      questionType: 0,
+      rules: this.question.rules.map(r=>r.rule),
+      script: this.c.getValue()      
+    }  
+    
+    
+    attachAuthHeader(http.post(getUrlFor("questions/complex")))    
+      .send(model)      
+      .end((err, res) => {
+        if(res.status === 201){
+          UIKit.notification({ message: 'successfully created', status: 'success' })
+          this.router.navigate(['/supervisor/questions/complex']);
+        }
+      })
+  }
+}
 }

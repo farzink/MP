@@ -1,0 +1,38 @@
+
+  
+
+  <div class="uk-cover-background">
+    <img class="uk-invisible" src="" width="" height="" alt="">
+  </div>
+  <div [hidden]="!(getRole() === 'student')" class="uk-container">
+      <article class="uk-article">
+
+          <h1 class="uk-article-title"><a class="uk-link-reset" href="">Introduction</a></h1>
+      
+          <p class="uk-article-meta">Written by <a href="#">Admin</a> on 10 August 2018</p>
+      
+          <p class="uk-text-lead">Just a few instruction on how to use this simple system</p>
+      
+          <p>Review Tasks can be used to check out the new assigned tasks by the lecturer</p>
+          <p>History can be used to review the previous assignment grades and status</p>    
+          
+      
+      </article>
+  </div>
+
+  <div [hidden]="!(getRole() === 'admin')" class="uk-container">
+      <article class="uk-article">
+
+          <h1 class="uk-article-title"><a class="uk-link-reset" href="">Introduction</a></h1>
+      
+          <p class="uk-article-meta">Written by <a href="#">Admin</a> on 10 August 2018</p>
+      
+          <p class="uk-text-lead">Just a few instruction on how to use this simple system</p>
+      
+          <p>In create question section two types of question which are simple and complex can be created</p>
+          <p>After successful creation of either type of questions the assignments section can be used to assign questions to students</p>    
+          <p>In student section all the current students are listed</p>
+          
+      
+      </article>
+  </div>

@@ -1,0 +1,59 @@
+<p class="uk-text-lead">
+  Select the student who will be assigned the task
+</p>
+
+
+<div class="uk-container">
+  <ul *ngFor="let q of users" class="uk-list uk-list-striped">
+    <li>
+      <div class="uk-grid toggle-animation-queued">
+        <div class="uk-width-2-5@s uk-card"><span>{{q.username}}</span></div>
+        <div class="uk-width-1-5@s uk-text-meta">last activity date: {{q.lastActivityDate}}</div>
+        <div class="uk-width-1-5@s"><span class="uk-badge">{{q.role}}</span></div>
+        <div class="uk-width-1-5@s">
+          <button class="uk-button" [ngClass]="(q.enroll) ? 'uk-button-primary' : 'uk-button-danger'" type="button" (click)="enroll(q.id)">{{
+            q.enroll ? "enrolled" : "enroll"}}</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<br>
+<br>
+<div ukgrid>
+  <form class="uk-form-stacked">
+
+    <div class="uk-margin">
+      <label class="uk-form-label" for="form-stacked-text">Title</label>
+      <div class="uk-form-controls">
+        <input #taskTitle class="uk-input" id="form-stacked-text" type="text" placeholder="title">
+      </div>
+    </div>
+
+    <div class="uk-margin">
+      <label class="uk-form-label" for="form-stacked-select">Description</label>
+      <div class="uk-form-controls">
+        <textarea #taskDescription class="uk-input" placeholder="description"></textarea>
+      </div>
+    </div>
+    <div class="uk-margin">
+      <input #taskDeadline  class="uk-input" type="date">
+    </div>
+
+    <div class="uk-margin">
+      <a class="uk-button uk-button-secondary uk-button-small uk-border-rounded" (click)="assign()">Assign</a>
+    </div>
+
+  </form>
+</div>
+<div class="uk-grid">
+  <div class="uk-width-1-5@s">
+  </div>
+  <div class="uk-width-3-5@s">
+  </div>
+  <div class="uk-width-1-5@s">
+
+
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<p class="uk-text-lead">
+  All Available Questions
+</p>
+
+
+<div class="uk-container">
+  <ul *ngFor="let q of questions" class="uk-list uk-list-striped">
+    <li>
+        <div uk-grid>
+            <div class="uk-width-2-5@s"><span>{{q.title}}</span></div>
+            <div class="uk-width-1-5@s uk-text-meta">{{q.questionType}}</div>
+            <div class="uk-width-1-5@s"><span class="uk-badge">{{q.hardness}}</span></div>
+            <div class="uk-width-1-5@s">
+                <a class="uk-button uk-button-secondary uk-button-small uk-border-rounded" routerLink="/supervisor/questions/assign/{{q.id}}">Assign</a>
+            </div>            
+        </div>
+    </li>    
+</ul>
+</div>

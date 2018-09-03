@@ -1,0 +1,21 @@
+
+<br>
+
+<h2>
+  All Current Complex Questions
+</h2>
+<a class="uk-button uk-button-default" href="" routerLink="/supervisor/questions/complex/create">Add Question</a>
+<br>
+
+<br>
+
+<div class="uk-container">
+  <article *ngFor="let r of questions; let n = index" class="uk-article">
+    <h4 class="uk-article uk-text-primary">Title: {{r.title}}</h4>
+    <p class="uk-article-meta">Hardness: {{r.hardness}}</p>
+    <p class="uk-article-lead">Description: {{r.description}}</p>    
+    <a class="uk-button uk-button uk-button-primary" href="" routerLink="/supervisor/questions/complex/view/{{r.id}}">View</a>
+    <hr class="uk-article-divider">    
+  </article>
+</div>
+

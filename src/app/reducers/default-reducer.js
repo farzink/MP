@@ -7,6 +7,7 @@ export const questionReducer = (state = {}, action) => {
                 questions: [
                     ...state.questions, {
                         id: action.payload.id,
+                        title: action.payload.title,
                         description: action.payload.description,
                         hardness: action.payload.hardness,
                         html: action.payload.html,
